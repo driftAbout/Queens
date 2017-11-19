@@ -1,15 +1,13 @@
 'use strict';
 
 var grid = 8;
-var y = [];
-var x = [];
 var queens = [];
 
-function Queen(all_xy, xy, y, x) {
+function Queen(all_xy, xy) {
   this.all_xy = all_xy;
   this.xy = xy;
-  this.y = y;
-  this.x = x;
+  this.y = parseInt(this.xy.substr(1, this.xy.length - 2 ).split(',')[0]);
+  this.x = parseInt(this.xy.substr(1, this.xy.length - 2 ).split(',')[1]);
   this.attack = false;
   this.diagonals = [];
   this.can_planer_attack();
@@ -56,21 +54,27 @@ Queen.prototype.can_diagonal_attack = function(){
   }
 };
 
-function EightQueens(strArr) {
+function eightQueens(strArr) {
 
   // code goes here
-  var yNum;
-  var xNum;
 
+  var queen;
   for (var i = 0; i < strArr.length; i++){
-    yNum = parseInt(strArr[i].substr(1, strArr[i].length - 2 ).split(',')[0]);
-    y.push(yNum);
-    xNum = parseInt(strArr[i].substr(1, strArr[i].length - 2 ).split(',')[1]);
-    x.push(xNum);
-    queens.push(new Queen(strArr, strArr[i], yNum, xNum));
+    //yNum = parseInt(strArr[i].substr(1, strArr[i].length - 2 ).split(',')[0]);
+    //y.push(yNum);
+    //xNum = parseInt(strArr[i].substr(1, strArr[i].length - 2 ).split(',')[1]);
+  //  x.push(xNum);
+    //queens.push(new Queen(strArr, strArr[i]));
+    queen = new Queen(strArr, strArr[i]);
+    if (queen.attack === true) {
+      return strArr[i]
+    };
+
+
   }
 
-  console.log('queens: ', queens)
+
+  console.log('queens: ', queens);
 
   //     y,x
   //     y, x+i
@@ -93,10 +97,12 @@ function EightQueens(strArr) {
   // }
 
 
-  return strArr;
+  return true;
 
 }
 
 // keep this function call here
-var queensStrings = ['(2,1)', '(4,2)', '(6,3)', '(8,4)', '(3,5)', '(1,6)', '(7,7)', '(5,8)'];
-EightQueens(queensStrings);
+//var queensStrings = ['(2,1)', '(4,2)', '(6,3)', '(8,4)', '(3,5)', '(1,6)', '(7,7)', '(5,8)'];
+//var queensStrings = ['(2,1)', '(4,3)', '(6,3)', '(8,4)', '(3,4)', '(1,6)', '(7,7)', '(5,8)'];
+var queensStrings = ['(2,1)', '(5,3)', '(6,3)', '(8,4)', '(3,4)', '(1,8)', '(7,7)', '(5,8)'];
+console.log(eightQueens(queensStrings));
